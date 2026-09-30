@@ -234,7 +234,7 @@
 
     .projects-grid {
       display: grid;
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 1.75rem;
     }
 
@@ -246,6 +246,9 @@
       transition: var(--transition);
       opacity: 0;
       transform: translateY(20px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     .card.revealed {
@@ -261,7 +264,7 @@
 
     .card-preview-img {
       width: 100%;
-      height: 220px;
+      height: 200px;
       object-fit: cover;
       border-radius: var(--radius-sm);
       margin-bottom: 1.25rem;
@@ -279,8 +282,9 @@
     }
 
     .card-title {
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       font-weight: 700;
+      line-height: 1.3;
     }
 
     .tech-pill {
@@ -296,6 +300,7 @@
       font-size: 0.95rem;
       color: #4A4A48;
       margin-bottom: 1.25rem;
+      flex-grow: 1;
     }
 
     .pedagogic-badge {
@@ -308,9 +313,74 @@
       padding: 0.35rem 0.75rem;
       border-radius: var(--radius-sm);
       margin-bottom: 1rem;
+      align-self: flex-start;
     }
 
-    /* ACORDEÓN TALLER */
+    /* MINI HERRAMIENTA INTERACTIVA: SEMÁFORO DE IA */
+    .traffic-light-interactive {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      margin: 2.5rem 0;
+    }
+
+    .tl-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .tl-pills {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .tl-btn {
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      background: #F4F4F0;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .tl-btn[data-state="green"].active {
+      background: #DCFCE7;
+      color: #166534;
+      border-color: #86EFAC;
+    }
+
+    .tl-btn[data-state="yellow"].active {
+      background: #FEF9C3;
+      color: #854D0E;
+      border-color: #FDE047;
+    }
+
+    .tl-btn[data-state="red"].active {
+      background: #FEE2E2;
+      color: #991B1B;
+      border-color: #FCA5A5;
+    }
+
+    .tl-card-display {
+      background: #F9F9F6;
+      border: 1px dashed var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      font-size: 0.95rem;
+      color: #333;
+      min-height: 80px;
+      display: flex;
+      align-items: center;
+    }
+
+    /* ACORDEÓN MÓDULOS CURRICULARES */
     .curriculum-module {
       background: var(--card-bg);
       border: 1px solid var(--border);
@@ -426,7 +496,7 @@
         <div class="hero-text">
           <span class="tag-hero">TECNOLOGÍA, DISEÑO Y EDUCACIÓN</span>
           <h1>Pensamiento computacional e interfaces para el aula.</h1>
-          <p>Estudiante avanzada de Artes Multimediales (UNA). Conecto el desarrollo interactivo, la electrónica maker y el diseño accesible con la práctica pedagógica escolar.</p>
+          <p>Estudiante avanzada de Artes Multimediales (UNA). Conecto el desarrollo interactivo, la robótica maker con Arduino[span_0](start_span)[span_0](end_span) y la ciudadanía digital con la práctica pedagógica escolar[span_1](start_span)[span_1](end_span).</p>
           <div class="hero-actions">
             <a href="#proyectos" class="btn btn-primary">Ver Casos Didácticos</a>
             <a href="cv_camila_mihalyczo.pdf" download class="btn btn-outline">Descargar CV Docente (PDF)</a>
@@ -443,7 +513,7 @@
     <!-- MANIFIESTO PEDAGÓGICO -->
     <div class="manifesto-box">
       <blockquote>
-        "La tecnología en la escuela no es un fin en sí misma ni una invitación al consumo pasivo de pantallas. Es un medio creativo de alfabetización: programar, conectar sensores y diseñar interfaces es aprender a dar forma a ideas reales."
+        "La tecnología en la escuela no es un fin en sí misma ni una invitación al consumo pasivo de pantallas. Es un medio creativo de alfabetización: programar, conectar sensores y reflexionar sobre la IA es aprender a tomar decisiones informadas y dar forma a ideas reales."
       </blockquote>
     </div>
 
@@ -462,7 +532,7 @@
             <span class="tech-pill">Next.js / Speech API / CMS</span>
           </div>
           <span class="pedagogic-badge">Plataforma EdTech Propia</span>
-          <p>Entorno virtual con panel de gestión docente, tracks modulares para diferentes edades y laboratorio de reconocimiento de voz. Desarrollado con foco en la autonomía de los estudiantes y el seguimiento individualizado del docente.</p>
+          <p>Entorno virtual con panel de gestión docente, tracks por edades y laboratorio de reconocimiento de voz[span_2](start_span)[span_2](end_span)[span_3](start_span)[span_3](end_span)[span_4](start_span)[span_4](end_span). Fomenta la autonomía del estudiante y el registro docente continuo[span_5](start_span)[span_5](end_span)[span_6](start_span)[span_6](end_span).</p>
           <a href="https://activityblog.vercel.app/" target="_blank" class="btn btn-outline" style="font-size: 0.8rem;">Explorar Campus ↗</a>
         </article>
 
@@ -474,173 +544,102 @@
             <span class="tech-pill">Arduino Uno / LDR / p5.js</span>
           </div>
           <span class="pedagogic-badge">Computación Física Escolar</span>
-          <p>Dispositivos interactivos que traspasan la pantalla. Desarrollo de experiencias donde los estudiantes programan sensores de luz y movimiento que disparan secuencias audiovisuales y respuestas lumínicas en el espacio real.</p>
+          <p>Dispositivos interactivos tangibles[span_7](start_span)[span_7](end_span). Los chicos programan circuitos con sensores lumínicos y actuadores para entender salidas digitales y reacciones del mundo físico[span_8](start_span)[span_8](end_span).</p>
+          <a href="#planificacion" class="btn btn-outline" style="font-size: 0.8rem;">Ver Módulos Curriculares ↓</a>
         </article>
 
-        <!-- Tarjeta 3: Programación y UX Accesible -->
+        <!-- Tarjeta 3: Alfabetización Digital & UX -->
         <article class="card">
           <img src="ux-design.png" alt="Interfaces y diseño accesible" class="card-preview-img" />
           <div class="card-header">
-            <h3 class="card-title">Alfabetización Digital & UX para Chicos</h3>
+            <h3 class="card-title">Alfabetización Digital & UX Inclusivo</h3>
             <span class="tech-pill">HTML5 / Figma / WCAG</span>
           </div>
           <span class="pedagogic-badge">Diseño Centrado en las Personas</span>
-          <p>Metodología de enseñanza donde programar interfaces web va de la mano con entender la empatía y la accesibilidad digital: contrastes, jerarquías visuales y diseño inclusivo para todas las capacidades.</p>
+          <p>Programación de interfaces con perspectiva accesible[span_9](start_span)[span_9](end_span). Los alumnos crean prototipos y aprenden contrastes, jerarquías visuales y empatía hacia diversas formas de aprender[span_10](start_span)[span_10](end_span).</p>
+          <a href="#semaforo" class="btn btn-outline" style="font-size: 0.8rem;">Ver Enfoque Didáctico ↓</a>
+        </article>
+
+        <!-- Tarjeta 4: IA Segura & Infancias -->
+        <article class="card">
+          <img src="ia-segura.png" alt="Licencia de Conducir de Inteligencia Artificial para el aula" class="card-preview-img" />
+          <div class="card-header">
+            <h3 class="card-title">Licencia de IA & Ciudadanía Digital</h3>
+            <span class="tech-pill">Privacidad / Ética / Prompts</span>
+          </div>
+          <span class="pedagogic-badge">IA como Copiloto Seguro</span>
+          <p>Dinámica aúlica basada en "sacar la licencia de conducir" antes de usar herramientas de IA. Enseña a detectar alucinaciones, proteger datos personales y usar la IA para disparar ideas, no para reemplazar el pensamiento.</p>
+          <a href="#semaforo" class="btn btn-outline" style="font-size: 0.8rem;">Probar Semáforo de IA ↓</a>
         </article>
 
       </div>
     </section>
 
-    <!-- SECUENCIA DIDÁCTICA / TALLER -->
+    <!-- MINI COMPONENTE DIDÁCTICO: EL SEMÁFORO DE LA IA -->
+    <section id="semaforo">
+      <div class="traffic-light-interactive">
+        <div class="tl-header">
+          <h3 style="font-size: 1.25rem; font-weight: 700;">🚦 Dinámica Aúlica: El Semáforo de la IA para Infancias</h3>
+        </div>
+        <p style="font-size: 0.95rem; color: var(--muted); margin-bottom: 1.25rem;">
+          Técnica visual utilizada en el aula para que los alumnos comprendan límites éticos, privacidad y pensamiento crítico. Tocá cada luz para ver la consigna:
+        </p>
+        
+        <div class="tl-pills">
+          <button class="tl-btn active" data-state="green">🟢 Luz Verde (Creatividad y Juego)</button>
+          <button class="tl-btn" data-state="yellow">🟡 Luz Amarilla (Chequeo de Alucinaciones)</button>
+          <button class="tl-btn" data-state="red">🔴 Luz Roja (Privacidad y Peligro)</button>
+        </div>
+
+        <div class="tl-card-display" id="tl-feedback">
+          <strong>Uso Habilitado:</strong> "Ayudame a inventar nombres para los personajes de mi juego en p5.js", o pedir explicaciones con analogías simples. La IA funciona como copiloto y disparador imaginativo.
+        </div>
+      </div>
+    </section>
+
+    <!-- SECUENCIA DIDÁCTICA / MÓDULOS -->
     <section id="planificacion">
       <h2 class="section-title">Propuesta de Secuencia Curricular</h2>
-      <p class="section-subtitle">Taller de 4 encuentros: "Del Pixel al Sensor" para Primaria (6.°/7.°) o Secundaria Básica.</p>
+      <p class="section-subtitle">Programa estructurado en 5 módulos: "Del Pixel al Sensor y la Ciudadanía Digital" (adaptable por proyectos en Primaria o Secundaria Básica).</p>
 
       <div class="curriculum-module">
         
         <div class="accordion-item">
           <button class="accordion-header">
-            <span><strong>Clase 1:</strong> ¿Cómo piensa una máquina? Algoritmos y lógica visual</span>
+            <span><strong>Módulo 1:</strong> ¿Cómo piensa una máquina? Algoritmos y lógica visual</span>
             <span class="accordion-icon">+</span>
           </button>
           <div class="accordion-content">
-            <p>Introducción al pensamiento secuencial y bucles mediante programación por bloques o p5.js. Los alumnos crean su primer personaje interactivo que responde al teclado.</p>
+            <p>Introducción al pensamiento secuencial y bucles mediante programación visual (p5.js o Scratch). Los alumnos crean su primer personaje interactivo que responde al teclado[span_11](start_span)[span_11](end_span).</p>
           </div>
         </div>
 
         <div class="accordion-item">
           <button class="accordion-header">
-            <span><strong>Clase 2:</strong> Electrónica tangible: Conociendo Arduino y la protoboard</span>
+            <span><strong>Módulo 2:</strong> Electrónica tangible: Conociendo Arduino y la protoboard</span>
             <span class="accordion-icon">+</span>
           </button>
           <div class="accordion-content">
-            <p>Descubrimiento del hardware libre. Montaje de circuitos con LEDs y resistencias. Programación de secuencias de luz temporizadas para entender salidas digitales y masa (GND).</p>
+            <p>Descubrimiento del hardware libre[span_12](start_span)[span_12](end_span). Montaje de circuitos con LEDs y resistencias[span_13](start_span)[span_13](end_span). Programación de secuencias de luz temporizadas para entender salidas digitales y masa (GND)[span_14](start_span)[span_14](end_span).</p>
           </div>
         </div>
 
         <div class="accordion-item">
           <button class="accordion-header">
-            <span><strong>Clase 3:</strong> El entorno reacciona: Lectura de sensores de luz (LDR)</span>
+            <span><strong>Módulo 3:</strong> El entorno reacciona: Lectura de sensores de luz (LDR)</span>
             <span class="accordion-icon">+</span>
           </button>
           <div class="accordion-content">
-            <p>Uso de entradas analógicas. Programación de condicionales (if/else) para crear un prototipo de iluminación automática escolar sensible a la luz ambiental.</p>
+            <p>Uso de entradas analógicas[span_15](start_span)[span_15](end_span). Programación de condicionales (if/else) para crear un prototipo de iluminación automática escolar sensible a la luz ambiental[span_16](start_span)[span_16](end_span).</p>
           </div>
         </div>
 
         <div class="accordion-item">
           <button class="accordion-header">
-            <span><strong>Clase 4:</strong> Proyecto integrador y muestra en equipo</span>
+            <span><strong>Módulo 4:</strong> Proyecto integrador maker y muestra colaborativa</span>
             <span class="accordion-icon">+</span>
           </button>
           <div class="accordion-content">
-            <p>Desarrollo colaborativo de una mini-instalación interactiva. Cierre reflexivo donde cada grupo expone el funcionamiento y la solución alcanzada ante sus pares.</p>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-  </main>
-
-  <!-- FOOTER -->
-  <footer class="container">
-    <div>Camila Mihalyczo • CABA, Argentina</div>
-    <div>camila.mihalyczo@bue.edu.ar</div>
-  </footer>
-
-  <!-- SCRIPTS -->
-  <script>
-    // 1. Interactive Node Canvas
-    const canvas = document.getElementById('hero-canvas');
-    const ctx = canvas.getContext('2d');
-    let width, height, points = [];
-
-    function resize() {
-      width = canvas.width = canvas.parentElement.offsetWidth;
-      height = canvas.height = canvas.parentElement.offsetHeight;
-      initPoints();
-    }
-
-    function initPoints() {
-      points = [];
-      const count = Math.floor(width / 35);
-      for (let i = 0; i < count; i++) {
-        points.push({
-          x: Math.random() * width,
-          y: Math.random() * height,
-          vx: (Math.random() - 0.5) * 0.4,
-          vy: (Math.random() - 0.5) * 0.4,
-          radius: Math.random() * 2 + 1.5
-        });
-      }
-    }
-
-    function animate() {
-      ctx.clearRect(0, 0, width, height);
-      ctx.fillStyle = '#2563EB';
-      ctx.strokeStyle = 'rgba(37, 99, 235, 0.12)';
-
-      for (let i = 0; i < points.length; i++) {
-        const p = points[i];
-        p.x += p.vx;
-        p.y += p.vy;
-
-        if (p.x < 0 || p.x > width) p.vx *= -1;
-        if (p.y < 0 || p.y > height) p.vy *= -1;
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fill();
-
-        for (let j = i + 1; j < points.length; j++) {
-          const p2 = points[j];
-          const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
-          if (dist < 100) {
-            ctx.beginPath();
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(p2.x, p2.y);
-            ctx.stroke();
-          }
-        }
-      }
-      requestAnimationFrame(animate);
-    }
-
-    window.addEventListener('resize', resize);
-    resize();
-    animate();
-
-    // 2. Scroll Reveal
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, idx) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => {
-            entry.target.classList.add('revealed');
-          }, idx * 120);
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.15 });
-
-    document.querySelectorAll('.card').forEach(el => observer.observe(el));
-
-    // 3. Acordeón
-    document.querySelectorAll('.accordion-header').forEach(header => {
-      header.addEventListener('click', () => {
-        const item = header.parentElement;
-        const isActive = item.classList.contains('active');
-        
-        document.querySelectorAll('.accordion-item').forEach(other => {
-          other.classList.remove('active');
-        });
-
-        if (!isActive) {
-          item.classList.add('active');
-        }
-      });
-    });
-  </script>
-</body>
-  </html>
-  
+            <p>Desarrollo en equipo de una mini-instalación interactiva[span_17](start_span)[span_17](end_span). Cierre reflexivo donde cada grupo expone el funcionamiento y la solución alcanzada ante sus pares.</p>
+ 
+ 
