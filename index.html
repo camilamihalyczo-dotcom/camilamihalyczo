@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Camila Mihalyczo | Tecnología, Diseño y Educación</title>
+  
+  <!-- Tipografías: Plus Jakarta Sans (UI) & JetBrains Mono (Tech tags) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #F9F9F6;
+      --card-bg: #FFFFFF;
+      --text: #1E1E1E;
+      --muted: #666663;
+      --border: #E8E8E4;
+      --brand-blue: #2563EB;
+      --brand-blue-hover: #1D4ED8;
+      --badge-bg: #EFF6FF;
+      --badge-text: #1E40AF;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* HEADER */
+    header {
+      position: sticky;
+      top: 0;
+      background: rgba(249, 249, 246, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+      padding: 0.85rem 0;
+    }
+
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand-id {
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-id span {
+      color: var(--brand-blue);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.55rem 1.15rem;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: 0.875rem;
+      text-decoration: none;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background-color: var(--brand-blue);
+      color: white;
+      border: 1px solid var(--brand-blue);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--brand-blue-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-outline:hover {
+      background: white;
+      border-color: #D1D1CB;
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      padding: 4.5rem 0 3rem;
+      overflow: hidden;
+    }
+
+    #hero-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.45;
+    }
+
+    .hero-content-grid {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-text {
+      flex: 1;
+      min-width: 290px;
+    }
+
+    .tag-hero {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 500;
+      background: var(--badge-bg);
+      color: var(--badge-text);
+      padding: 0.35rem 0.75rem;
+      border-radius: 50px;
+      margin-bottom: 1.25rem;
+      border: 1px solid rgba(37, 99, 235, 0.15);
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      line-height: 1.18;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero p {
+      font-size: 1.05rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+      line-height: 1.55;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .hero-avatar {
+      flex-shrink: 0;
+      margin: 0 auto;
+    }
+
+    .hero-avatar img {
+      width: 165px;
+      height: 165px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #FFFFFF;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+      display: block;
+    }
+
+    /* MANIFIESTO */
+    .manifesto-box {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--brand-blue);
+      border-radius: var(--radius-md);
+      padding: 1.75rem;
+      margin: 2rem 0 3.5rem;
+      box-shadow: 0 4px 20px -8px rgba(0, 0, 0, 0.04);
+    }
+
+    .manifesto-box blockquote {
+      font-size: 1.02rem;
+      font-style: italic;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* SECCIONES Y CARDS */
+    section {
+      padding: 2.5rem 0;
+    }
+
+    .section-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-subtitle {
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.75rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      transition: var(--transition);
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .card.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .card:hover {
+      border-color: #D1D1CB;
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.06);
+      transform: translateY(-3px);
+    }
+
+    .card-preview-img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: var(--radius-sm);
+      margin-bottom: 1.25rem;
+      border: 1px solid var(--border);
+      display: block;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.85rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .tech-pill {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      background: #F1F1ED;
+      color: #555;
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      color: #4A4A48;
+      margin-bottom: 1.25rem;
+    }
+
+    .pedagogic-badge {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      background: #F0FDF4;
+      color: #166534;
+      border: 1px solid rgba(22, 101, 52, 0.15);
+      padding: 0.35rem 0.75rem;
+      border-radius: var(--radius-sm);
+      margin-bottom: 1rem;
+    }
+
+    /* ACORDEÓN TALLER */
+    .curriculum-module {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-top: 1rem;
+    }
+
+    .accordion-item {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .accordion-item:last-child {
+      border-bottom: none;
+    }
+
+    .accordion-header {
+      width: 100%;
+      text-align: left;
+      padding: 1.25rem 1.75rem;
+      background: none;
+      border: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      transition: background 0.2s;
+    }
+
+    .accordion-header:hover {
+      background: #FAFAF8;
+    }
+
+    .accordion-icon {
+      font-size: 1.2rem;
+      transition: transform 0.3s ease;
+      color: var(--brand-blue);
+    }
+
+    .accordion-item.active .accordion-icon {
+      transform: rotate(45deg);
+    }
+
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s cubic-bezier(0, 1, 0, 1);
+      padding: 0 1.75rem;
+      background: #FCFCFA;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .accordion-item.active .accordion-content {
+      max-height: 500px;
+      padding-bottom: 1.5rem;
+      transition: max-height 0.35s ease-in-out;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 3rem 0;
+      margin-top: 4rem;
+      font-size: 0.875rem;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    @media (max-width: 640px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+      .hero {
+        padding: 3.5rem 0 2rem;
+      }
+      .card {
+        padding: 1.25rem;
+      }
+      .accordion-header {
+        padding: 1rem 1.25rem;
+      }
+      .accordion-content {
+        padding: 0 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVEGACIÓN -->
+  <header>
+    <div class="container nav-inner">
+      <div class="brand-id">Camila <span>Mihalyczo</span></div>
+      <a href="https://activityblog.vercel.app/" target="_blank" class="btn btn-primary">Ver Activity Blog ↗</a>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- HERO -->
+    <section class="hero">
+      <canvas id="hero-canvas"></canvas>
+      <div class="hero-content-grid">
+        
+        <div class="hero-text">
+          <span class="tag-hero">TECNOLOGÍA, DISEÑO Y EDUCACIÓN</span>
+          <h1>Pensamiento computacional e interfaces para el aula.</h1>
+          <p>Estudiante avanzada de Artes Multimediales (UNA). Conecto el desarrollo interactivo, la electrónica maker y el diseño accesible con la práctica pedagógica escolar.</p>
+          <div class="hero-actions">
+            <a href="#proyectos" class="btn btn-primary">Ver Casos Didácticos</a>
+            <a href="cv_camila_mihalyczo.pdf" download class="btn btn-outline">Descargar CV Docente (PDF)</a>
+          </div>
+        </div>
+
+        <div class="hero-avatar">
+          <img src="camila.png" alt="Camila Mihalyczo" />
+        </div>
+
+      </div>
+    </section>
+
+    <!-- MANIFIESTO PEDAGÓGICO -->
+    <div class="manifesto-box">
+      <blockquote>
+        "La tecnología en la escuela no es un fin en sí misma ni una invitación al consumo pasivo de pantallas. Es un medio creativo de alfabetización: programar, conectar sensores y diseñar interfaces es aprender a dar forma a ideas reales."
+      </blockquote>
+    </div>
+
+    <!-- PROYECTOS / CASOS EDUCATIVOS -->
+    <section id="proyectos">
+      <h2 class="section-title">Casos y Entornos de Aprendizaje</h2>
+      <p class="section-subtitle">Proyectos propios diseñados desde la intersección entre código, hardware y didáctica.</p>
+
+      <div class="projects-grid">
+        
+        <!-- Tarjeta 1: Activity Blog -->
+        <article class="card">
+          <img src="activityblog.png" alt="Vista previa de Activity Blog" class="card-preview-img" />
+          <div class="card-header">
+            <h3 class="card-title">Activity Blog — Campus Web & Lab</h3>
+            <span class="tech-pill">Next.js / Speech API / CMS</span>
+          </div>
+          <span class="pedagogic-badge">Plataforma EdTech Propia</span>
+          <p>Entorno virtual con panel de gestión docente, tracks modulares para diferentes edades y laboratorio de reconocimiento de voz. Desarrollado con foco en la autonomía de los estudiantes y el seguimiento individualizado del docente.</p>
+          <a href="https://activityblog.vercel.app/" target="_blank" class="btn btn-outline" style="font-size: 0.8rem;">Explorar Campus ↗</a>
+        </article>
+
+        <!-- Tarjeta 2: Arduino & Maker -->
+        <article class="card">
+          <img src="arduino.png" alt="Instalación con Arduino y sensores" class="card-preview-img" />
+          <div class="card-header">
+            <h3 class="card-title">Cultura Maker: Sensores e Instalaciones</h3>
+            <span class="tech-pill">Arduino Uno / LDR / p5.js</span>
+          </div>
+          <span class="pedagogic-badge">Computación Física Escolar</span>
+          <p>Dispositivos interactivos que traspasan la pantalla. Desarrollo de experiencias donde los estudiantes programan sensores de luz y movimiento que disparan secuencias audiovisuales y respuestas lumínicas en el espacio real.</p>
+        </article>
+
+        <!-- Tarjeta 3: Programación y UX Accesible -->
+        <article class="card">
+          <img src="ux-design.png" alt="Interfaces y diseño accesible" class="card-preview-img" />
+          <div class="card-header">
+            <h3 class="card-title">Alfabetización Digital & UX para Chicos</h3>
+            <span class="tech-pill">HTML5 / Figma / WCAG</span>
+          </div>
+          <span class="pedagogic-badge">Diseño Centrado en las Personas</span>
+          <p>Metodología de enseñanza donde programar interfaces web va de la mano con entender la empatía y la accesibilidad digital: contrastes, jerarquías visuales y diseño inclusivo para todas las capacidades.</p>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- SECUENCIA DIDÁCTICA / TALLER -->
+    <section id="planificacion">
+      <h2 class="section-title">Propuesta de Secuencia Curricular</h2>
+      <p class="section-subtitle">Taller de 4 encuentros: "Del Pixel al Sensor" para Primaria (6.°/7.°) o Secundaria Básica.</p>
+
+      <div class="curriculum-module">
+        
+        <div class="accordion-item">
+          <button class="accordion-header">
+            <span><strong>Clase 1:</strong> ¿Cómo piensa una máquina? Algoritmos y lógica visual</span>
+            <span class="accordion-icon">+</span>
+          </button>
+          <div class="accordion-content">
+            <p>Introducción al pensamiento secuencial y bucles mediante programación por bloques o p5.js. Los alumnos crean su primer personaje interactivo que responde al teclado.</p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-header">
+            <span><strong>Clase 2:</strong> Electrónica tangible: Conociendo Arduino y la protoboard</span>
+            <span class="accordion-icon">+</span>
+          </button>
+          <div class="accordion-content">
+            <p>Descubrimiento del hardware libre. Montaje de circuitos con LEDs y resistencias. Programación de secuencias de luz temporizadas para entender salidas digitales y masa (GND).</p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-header">
+            <span><strong>Clase 3:</strong> El entorno reacciona: Lectura de sensores de luz (LDR)</span>
+            <span class="accordion-icon">+</span>
+          </button>
+          <div class="accordion-content">
+            <p>Uso de entradas analógicas. Programación de condicionales (if/else) para crear un prototipo de iluminación automática escolar sensible a la luz ambiental.</p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-header">
+            <span><strong>Clase 4:</strong> Proyecto integrador y muestra en equipo</span>
+            <span class="accordion-icon">+</span>
+          </button>
+          <div class="accordion-content">
+            <p>Desarrollo colaborativo de una mini-instalación interactiva. Cierre reflexivo donde cada grupo expone el funcionamiento y la solución alcanzada ante sus pares.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="container">
+    <div>Camila Mihalyczo • CABA, Argentina</div>
+    <div>camila.mihalyczo@bue.edu.ar</div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script>
+    // 1. Interactive Node Canvas
+    const canvas = document.getElementById('hero-canvas');
+    const ctx = canvas.getContext('2d');
+    let width, height, points = [];
+
+    function resize() {
+      width = canvas.width = canvas.parentElement.offsetWidth;
+      height = canvas.height = canvas.parentElement.offsetHeight;
+      initPoints();
+    }
+
+    function initPoints() {
+      points = [];
+      const count = Math.floor(width / 35);
+      for (let i = 0; i < count; i++) {
+        points.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          vx: (Math.random() - 0.5) * 0.4,
+          vy: (Math.random() - 0.5) * 0.4,
+          radius: Math.random() * 2 + 1.5
+        });
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+      ctx.fillStyle = '#2563EB';
+      ctx.strokeStyle = 'rgba(37, 99, 235, 0.12)';
+
+      for (let i = 0; i < points.length; i++) {
+        const p = points[i];
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.x < 0 || p.x > width) p.vx *= -1;
+        if (p.y < 0 || p.y > height) p.vy *= -1;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fill();
+
+        for (let j = i + 1; j < points.length; j++) {
+          const p2 = points[j];
+          const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+          if (dist < 100) {
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(animate);
+    }
+
+    window.addEventListener('resize', resize);
+    resize();
+    animate();
+
+    // 2. Scroll Reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, idx) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('revealed');
+          }, idx * 120);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.card').forEach(el => observer.observe(el));
+
+    // 3. Acordeón
+    document.querySelectorAll('.accordion-header').forEach(header => {
+      header.addEventListener('click', () => {
+        const item = header.parentElement;
+        const isActive = item.classList.contains('active');
+        
+        document.querySelectorAll('.accordion-item').forEach(other => {
+          other.classList.remove('active');
+        });
+
+        if (!isActive) {
+          item.classList.add('active');
+        }
+      });
+    });
+  </script>
+</body>
+  </html>
+  
