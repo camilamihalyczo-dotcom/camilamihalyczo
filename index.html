@@ -12,7 +12,7 @@
   <style>
     :root {
       --bg: #F9F9F6;
-      --card-bg: #FFFFFF;
+      --card-bg: rgba(255, 255, 255, 0.94);
       --text: #1E1E1E;
       --muted: #666663;
       --border: #E8E8E4;
@@ -41,20 +41,35 @@
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
+      position: relative;
+    }
+
+    /* CANVAS DE FONDO GLOBAL */
+    #global-bg-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.35;
     }
 
     .container {
       width: 100%;
-      max-width: 980px;
+      max-width: 920px;
       margin: 0 auto;
       padding: 0 1.5rem;
+      position: relative;
+      z-index: 2;
     }
 
     /* HEADER */
     header {
       position: sticky;
       top: 0;
-      background: rgba(249, 249, 246, 0.85);
+      background: rgba(249, 249, 246, 0.88);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
       z-index: 100;
@@ -103,7 +118,7 @@
     }
 
     .btn-outline {
-      background: transparent;
+      background: rgba(255, 255, 255, 0.7);
       color: var(--text);
       border: 1px solid var(--border);
     }
@@ -115,25 +130,10 @@
 
     /* HERO */
     .hero {
-      position: relative;
       padding: 4.5rem 0 3rem;
-      overflow: hidden;
-    }
-
-    #hero-canvas {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-      pointer-events: none;
-      opacity: 0.45;
     }
 
     .hero-content-grid {
-      position: relative;
-      z-index: 2;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -198,6 +198,7 @@
     /* MANIFIESTO */
     .manifesto-box {
       background: var(--card-bg);
+      backdrop-filter: blur(8px);
       border: 1px solid var(--border);
       border-left: 4px solid var(--brand-blue);
       border-radius: var(--radius-md);
@@ -213,7 +214,7 @@
       line-height: 1.6;
     }
 
-    /* SECCIONES Y CARDS */
+    /* SECCIONES Y FORMATO VERTICAL DE TARJETAS */
     section {
       padding: 2.5rem 0;
     }
@@ -231,23 +232,25 @@
       margin-bottom: 2rem;
     }
 
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.75rem;
+    .projects-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
     }
 
     .card {
       background: var(--card-bg);
+      backdrop-filter: blur(8px);
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
       padding: 1.75rem;
       transition: var(--transition);
       opacity: 0;
       transform: translateY(20px);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 2rem;
+      align-items: center;
     }
 
     .card.revealed {
@@ -257,18 +260,17 @@
 
     .card:hover {
       border-color: #D1D1CB;
-      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.06);
-      transform: translateY(-3px);
+      box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.06);
+      transform: translateY(-2px);
     }
 
     .card-preview-media {
       width: 100%;
-      height: 200px;
-      border-radius: var(--radius-sm);
-      margin-bottom: 1.25rem;
+      height: 220px;
+      border-radius: var(--radius-md);
       border: 1px solid var(--border);
-      display: block;
       overflow: hidden;
+      background: #FFFFFF;
     }
 
     .card-preview-media img,
@@ -279,17 +281,24 @@
       display: block;
     }
 
+    .card-content {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      justify-content: center;
+    }
+
     .card-header {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      margin-bottom: 0.85rem;
+      margin-bottom: 0.65rem;
       flex-wrap: wrap;
       gap: 0.5rem;
     }
 
     .card-title {
-      font-size: 1.2rem;
+      font-size: 1.25rem;
       font-weight: 700;
       line-height: 1.3;
     }
@@ -307,7 +316,7 @@
       font-size: 0.95rem;
       color: #4A4A48;
       margin-bottom: 1.25rem;
-      flex-grow: 1;
+      line-height: 1.6;
     }
 
     .pedagogic-badge {
@@ -319,13 +328,14 @@
       border: 1px solid rgba(22, 101, 52, 0.15);
       padding: 0.35rem 0.75rem;
       border-radius: var(--radius-sm);
-      margin-bottom: 1rem;
+      margin-bottom: 0.85rem;
       align-self: flex-start;
     }
 
     /* SEMÁFORO INTERACTIVO */
     .traffic-light-interactive {
       background: var(--card-bg);
+      backdrop-filter: blur(8px);
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
       padding: 1.75rem;
@@ -390,6 +400,7 @@
     /* ACORDEÓN */
     .curriculum-module {
       background: var(--card-bg);
+      backdrop-filter: blur(8px);
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
       overflow: hidden;
@@ -464,7 +475,14 @@
       gap: 1rem;
     }
 
-    @media (max-width: 640px) {
+    @media (max-width: 768px) {
+      .card {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+      }
+      .card-preview-media {
+        height: 200px;
+      }
       .hero h1 {
         font-size: 1.95rem;
       }
@@ -485,11 +503,14 @@
 </head>
 <body>
 
+  <!-- CANVAS FONDO GLOBAL INTERACTIVO -->
+  <canvas id="global-bg-canvas"></canvas>
+
   <!-- NAVEGACIÓN -->
   <header>
     <div class="container nav-inner">
       <div class="brand-id">Camila <span>Mihalyczo</span></div>
-      <a href="https://activityblog.vercel.app/" target="_blank" class="btn btn-primary">Ver Activity Blog ↗</a>
+      <a href="https://camilamihalyczo.vercel.app/" target="_blank" class="btn btn-primary">Ver Portafolio IT ↗</a>
     </div>
   </header>
 
@@ -497,13 +518,12 @@
 
     <!-- HERO -->
     <section class="hero">
-      <canvas id="hero-canvas"></canvas>
       <div class="hero-content-grid">
         
         <div class="hero-text">
-          <span class="tag-hero">TECNOLOGÍAS DE LA INFORMACIÓN • CENS</span>
-          <h1>Alfabetización digital y herramientas productivas para el mundo laboral.</h1>
-          <p>Estudiante avanzada de Artes Multimediales (UNA). Conecto el desarrollo web, las herramientas colaborativas en la nube y el criterio ético en inteligencia artificial con la educación de jóvenes y adultos.</p>
+          <span class="tag-hero">TECNOLOGÍAS DE LA INFORMACIÓN • EDUCACIÓN</span>
+          <h1>Alfabetización digital y herramientas productivas para el aula y el ámbito laboral.</h1>
+          <p>Estudiante avanzada de Artes Multimediales (UNA)[cite: 1]. Conecto el desarrollo web, el hardware libre con Arduino[cite: 1], las herramientas colaborativas en la nube y el criterio ético en inteligencia artificial con la práctica educativa[cite: 1].</p>
           <div class="hero-actions">
             <a href="#proyectos" class="btn btn-primary">Ver Entornos y Casos</a>
             <a href="cv_camila_mihalyczo.pdf" download class="btn btn-outline">Descargar CV Docente (PDF)</a>
@@ -520,46 +540,54 @@
     <!-- MANIFIESTO PEDAGÓGICO -->
     <div class="manifesto-box">
       <blockquote>
-        "En la educación de jóvenes y adultos, la tecnología no es una teoría abstracta: es un puente directo hacia la autonomía cotidiana, la resolución de trámites ciudadanos y la inserción sociolaboral efectiva mediante herramientas digitales reales."
+        "La tecnología no es un fin en sí misma ni una teoría abstracta: es un puente directo hacia la autonomía cotidiana, la resolución práctica de problemas y la inserción sociolaboral efectiva mediante herramientas digitales reales."
       </blockquote>
     </div>
 
-    <!-- PROYECTOS / CASOS EDUCATIVOS -->
+    <!-- PROYECTOS / CASOS EDUCATIVOS EN FORMATO VERTICAL -->
     <section id="proyectos">
       <h2 class="section-title">Entornos de Aprendizaje y Competencias Digitales</h2>
-      <p class="section-subtitle">Propuestas orientadas a la práctica real, la resolución de problemas y el mundo del trabajo.</p>
+      <p class="section-subtitle">Propuestas orientadas a la práctica real, la cultura maker y el uso crítico de la tecnología.</p>
 
-      <div class="projects-grid">
+      <div class="projects-stack">
         
-        <!-- Tarjeta 1: Activity Blog -->
+        <!-- Bloque 1: Activity Blog -->
         <article class="card">
           <div class="card-preview-media">
             <img src="activityblog.png" alt="Vista previa de Activity Blog" />
           </div>
-          <div class="card-header">
-            <h3 class="card-title">Activity Blog — Campus & Autonomía</h3>
-            <span class="tech-pill">Next.js / Nube / Gestión</span>
+          <div class="card-content">
+            <div class="card-header">
+              <h3 class="card-title">Activity Blog — Campus & Autonomía</h3>
+              <span class="tech-pill">Next.js / Nube / Gestión</span>
+            </div>
+            <span class="pedagogic-badge">Plataforma EdTech Propia</span>
+            <p>Entorno virtual con panel de gestión docente y módulos de práctica autónoma[cite: 1]. Pensado para que los estudiantes adquieran destreza en entornos de trabajo online y organicen sus trayectorias de aprendizaje[cite: 1].</p>
+            <div>
+              <a href="https://activityblog.vercel.app/" target="_blank" class="btn btn-outline" style="font-size: 0.8rem;">Explorar Campus ↗</a>
+            </div>
           </div>
-          <span class="pedagogic-badge">Plataforma EdTech Propia</span>
-          <p>Entorno virtual con panel de gestión docente y módulos de práctica autónoma. Pensado para que los estudiantes adquieran destreza en entornos de trabajo online y organicen sus trayectorias de aprendizaje.</p>
-          <a href="https://activityblog.vercel.app/" target="_blank" class="btn btn-outline" style="font-size: 0.8rem;">Explorar Campus ↗</a>
         </article>
 
-        <!-- Tarjeta 2: Automatización & Lógica -->
+        <!-- Bloque 2: Automatización & Lógica -->
         <article class="card">
           <div class="card-preview-media">
             <img src="arduino.png" alt="Sistemas lógicos y circuitos interactivos" />
           </div>
-          <div class="card-header">
-            <h3 class="card-title">Lógica Aplicada & Automatización</h3>
-            <span class="tech-pill">Hardware Libre / Sensores / Lógica</span>
+          <div class="card-content">
+            <div class="card-header">
+              <h3 class="card-title">Lógica Aplicada & Automatización</h3>
+              <span class="tech-pill">Hardware Libre / Sensores / Lógica</span>
+            </div>
+            <span class="pedagogic-badge">Pensamiento Algorítmico</span>
+            <p>Comprensión del funcionamiento técnico detrás de los automatismos cotidianos: lectura de variables, toma de decisiones lógica (condicionales) y control de dispositivos en entornos técnicos mediante microcontroladores[cite: 1].</p>
+            <div>
+              <a href="#planificacion" class="btn btn-outline" style="font-size: 0.8rem;">Ver Módulos Curriculares ↓</a>
+            </div>
           </div>
-          <span class="pedagogic-badge">Pensamiento Algorítmico</span>
-          <p>Comprensión del funcionamiento técnico detrás de los automatismos cotidianos: lectura de variables, toma de decisiones lógica (condicionales) y control de dispositivos en entornos técnicos.</p>
-          <a href="#planificacion" class="btn btn-outline" style="font-size: 0.8rem;">Ver Módulos Curriculares ↓</a>
         </article>
 
-        <!-- Tarjeta 3: Alfabetización Digital & UX (SVG en línea) -->
+        <!-- Bloque 3: Alfabetización Digital & UX (SVG en línea) -->
         <article class="card">
           <div class="card-preview-media">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
@@ -604,16 +632,20 @@
               </g>
             </svg>
           </div>
-          <div class="card-header">
-            <h3 class="card-title">Productividad en la Nube & UX</h3>
-            <span class="tech-pill">Google Docs / Sheets / Forms</span>
+          <div class="card-content">
+            <div class="card-header">
+              <h3 class="card-title">Productividad en la Nube & UX</h3>
+              <span class="tech-pill">Google Docs / Sheets / Forms</span>
+            </div>
+            <span class="pedagogic-badge">Herramientas Colaborativas</span>
+            <p>Uso eficiente de hojas de cálculo, procesadores de texto y formularios para entornos administrativos y de comercio[cite: 1]. Enfoque en organización clara de la información, accesibilidad y diseño centrado en el usuario[cite: 1].</p>
+            <div>
+              <a href="#semaforo" class="btn btn-outline" style="font-size: 0.8rem;">Ver Criterio de Trabajo ↓</a>
+            </div>
           </div>
-          <span class="pedagogic-badge">Herramientas Colaborativas</span>
-          <p>Uso eficiente de hojas de cálculo, procesadores de texto y formularios para entornos administrativos y de comercio. Enfoque en organización de la información y claridad visual.</p>
-          <a href="#semaforo" class="btn btn-outline" style="font-size: 0.8rem;">Ver Criterio de Trabajo ↓</a>
         </article>
 
-        <!-- Tarjeta 4: IA Segura & Infancias (SVG en línea) -->
+        <!-- Bloque 4: IA Segura & Productividad (SVG en línea) -->
         <article class="card">
           <div class="card-preview-media">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
@@ -622,7 +654,7 @@
                 <rect width="450" height="270" rx="16" fill="#FFFFFF" stroke="#E2E2DC" stroke-width="2"/>
                 <path d="M 0 16 Q 0 0 16 0 L 434 0 Q 450 0 450 16 L 450 56 L 0 56 Z" fill="#2563EB"/>
                 <text x="24" y="34" font-family="system-ui, sans-serif" font-size="13" font-weight="800" fill="#FFFFFF" letter-spacing="1">USO ÉTICO Y PRODUCTIVO DE IA</text>
-                <text x="24" y="47" font-family="monospace" font-size="9" fill="#BFDBFE">HABILITACIÓN CENS • PRODUCTIVIDAD LABORAL</text>
+                <text x="24" y="47" font-family="monospace" font-size="9" fill="#BFDBFE">HABILITACIÓN AÚLICA • PRODUCTIVIDAD LABORAL</text>
                 <rect x="24" y="78" width="90" height="110" rx="8" fill="#F1F5F9" stroke="#CBD5E1" stroke-width="1.5"/>
                 <circle cx="69" cy="116" r="20" fill="#94A3B8"/>
                 <path d="M 42 172 C 42 148, 96 148, 96 172 Z" fill="#94A3B8"/>
@@ -649,13 +681,17 @@
               </g>
             </svg>
           </div>
-          <div class="card-header">
-            <h3 class="card-title">IA en el Trabajo & Ciberseguridad</h3>
-            <span class="tech-pill">Asistentes / Prompts / Seguridad</span>
+          <div class="card-content">
+            <div class="card-header">
+              <h3 class="card-title">IA en el Trabajo & Ciberseguridad</h3>
+              <span class="tech-pill">Asistentes / Prompts / Seguridad</span>
+            </div>
+            <span class="pedagogic-badge">Criterio Ético y Productivo</span>
+            <p>Uso de herramientas de IA generativa para redacción, estructuración de ideas y optimización de tareas diarias[cite: 1], acompañado de pautas estrictas sobre protección de datos personales y detección de alucinaciones.</p>
+            <div>
+              <a href="#semaforo" class="btn btn-outline" style="font-size: 0.8rem;">Ver Pautas de Uso ↓</a>
+            </div>
           </div>
-          <span class="pedagogic-badge">Criterio Ético y Productivo</span>
-          <p>Uso de herramientas de IA generativa para redacción profesional, estructuración de ideas y optimización de tareas diarias, acompañado de pautas estrictas sobre protección de datos personales.</p>
-          <a href="#semaforo" class="btn btn-outline" style="font-size: 0.8rem;">Ver Pautas de Uso ↓</a>
         </article>
 
       </div>
@@ -665,10 +701,10 @@
     <section id="semaforo">
       <div class="traffic-light-interactive">
         <div class="tl-header">
-          <h3 style="font-size: 1.25rem; font-weight: 700;">🚦 Criterio Tecnológico: Semáforo de Ciberseguridad e IA para Adultos</h3>
+          <h3 style="font-size: 1.25rem; font-weight: 700;">🚦 Criterio Tecnológico: Semáforo de Ciberseguridad e IA</h3>
         </div>
         <p style="font-size: 0.95rem; color: var(--muted); margin-bottom: 1.25rem;">
-          Guía metodológica para la toma de decisiones informada en el ámbito laboral y personal. Hacé clic en cada nivel:
+          Guía metodológica para la toma de decisiones informada en el ámbito educativo y laboral. Hacé clic en cada nivel:
         </p>
         
         <div class="tl-pills">
@@ -685,8 +721,8 @@
 
     <!-- SECUENCIA DIDÁCTICA / MÓDULOS -->
     <section id="planificacion">
-      <h2 class="section-title">Propuesta de Secuencia Curricular (CENS)</h2>
-      <p class="section-subtitle">Plan modular para Tecnología de la Información en Secundaria de Adultos, con foco en competencias sociolaborales.</p>
+      <h2 class="section-title">Propuesta de Secuencia Curricular</h2>
+      <p class="section-subtitle">Plan modular adaptable tanto a Primaria/Secundaria como a CENS (Secundaria de Adultos)[cite: 1].</p>
 
       <div class="curriculum-module">
         
@@ -696,7 +732,7 @@
             <span class="accordion-icon">+</span>
           </button>
           <div class="accordion-content">
-            <p>Organización de archivos en Google Drive, redacción de documentos formales colaborativos y elaboración de planillas de cálculo (fórmulas básicas, filtros y presupuestos) para el ámbito laboral.</p>
+            <p>Organización de archivos en Google Drive, redacción de documentos formales colaborativos y elaboración de planillas de cálculo (fórmulas básicas, filtros y presupuestos) para el ámbito laboral y educativo[cite: 1].</p>
           </div>
         </div>
 
@@ -706,7 +742,7 @@
             <span class="accordion-icon">+</span>
           </button>
           <div class="accordion-content">
-            <p>Gestión segura de plataformas de servicios y trámites (MiBA, AFIP, ANSES), autenticación en dos pasos, creación de contraseñas robustas y prevención de engaños digitales (phishing).</p>
+            <p>Gestión segura de plataformas de servicios y trámites (MiBA, AFIP, ANSES), autenticación en dos pasos, creación de contraseñas robustas y prevención de engaños digitales (phishing)[cite: 1].</p>
           </div>
         </div>
 
@@ -716,27 +752,27 @@
             <span class="accordion-icon">+</span>
           </button>
           <div class="accordion-content">
-            <p>Comprensión de secuencias lógicas y condicionales. Aplicación en automatizaciones sencillas de tareas repetitivas y análisis de cómo los sistemas informáticos procesan la información.</p>
+            <p>Comprensión de secuencias lógicas y condicionales[cite: 1]. Aplicación en automatizaciones sencillas de tareas repetitivas y análisis de cómo los sistemas informáticos procesan la información[cite: 1].</p>
           </div>
         </div>
 
         <div class="accordion-item">
           <button class="accordion-header">
-            <span><strong>Módulo 4:</strong> Inteligencia artificial aplicada al ámbito laboral</span>
+            <span><strong>Módulo 4:</strong> Inteligencia artificial aplicada al ámbito laboral y educativo</span>
             <span class="accordion-icon">+</span>
           </button>
           <div class="accordion-content">
-            <p>Estructuración de instrucciones claras (prompts) para redacción institucional, resolución de consultas complejas, detección de respuestas erróneas y límites éticos de las herramientas generativas.</p>
+            <p>Estructuración de instrucciones claras (prompts) para redacción institucional, resolución de consultas complejas, detección de respuestas erróneas y límites éticos de las herramientas generativas[cite: 1].</p>
           </div>
         </div>
 
         <div class="accordion-item">
           <button class="accordion-header">
-            <span><strong>Módulo 5:</strong> Proyecto integrador sociolaboral</span>
+            <span><strong>Módulo 5:</strong> Proyecto integrador sociolaboral y maker</span>
             <span class="accordion-icon">+</span>
           </button>
           <div class="accordion-content">
-            <p>Diseño y presentación de una solución tecnológica concreta vinculada a los intereses productivos de los estudiantes (microemprendimiento, gestión barrial o portfolio personal).</p>
+            <p>Diseño y presentación de una solución tecnológica concreta vinculada a los intereses productivos de los estudiantes (microemprendimiento, gestión comunitaria o portfolio personal)[cite: 1].</p>
           </div>
         </div>
 
@@ -747,33 +783,33 @@
 
   <!-- FOOTER -->
   <footer class="container">
-    <div>Camila Mihalyczo • CABA, Argentina</div>
-    <div>camila.mihalyczo@bue.edu.ar</div>
+    <div>Camila Mihalyczo • CABA, Argentina[cite: 1]</div>
+    <div>camila.mihalyczo@bue.edu.ar[cite: 1]</div>
   </footer>
 
   <!-- SCRIPTS -->
   <script>
-    // 1. Interactive Node Canvas
-    const canvas = document.getElementById('hero-canvas');
+    // 1. Canvas Global de Nodos en Background
+    const canvas = document.getElementById('global-bg-canvas');
     const ctx = canvas.getContext('2d');
     let width, height, points = [];
 
     function resize() {
-      width = canvas.width = canvas.parentElement.offsetWidth;
-      height = canvas.height = canvas.parentElement.offsetHeight;
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
       initPoints();
     }
 
     function initPoints() {
       points = [];
-      const count = Math.floor(width / 35);
+      const count = Math.floor((width * height) / 22000);
       for (let i = 0; i < count; i++) {
         points.push({
           x: Math.random() * width,
           y: Math.random() * height,
-          vx: (Math.random() - 0.5) * 0.4,
-          vy: (Math.random() - 0.5) * 0.4,
-          radius: Math.random() * 2 + 1.5
+          vx: (Math.random() - 0.5) * 0.35,
+          vy: (Math.random() - 0.5) * 0.35,
+          radius: Math.random() * 2 + 1.2
         });
       }
     }
@@ -798,7 +834,7 @@
         for (let j = i + 1; j < points.length; j++) {
           const p2 = points[j];
           const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
-          if (dist < 100) {
+          if (dist < 110) {
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(p2.x, p2.y);
@@ -823,7 +859,7 @@
           observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.15 });
+    }, { threshold: 0.1 });
 
     document.querySelectorAll('.card').forEach(el => observer.observe(el));
 
