@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Camila Mihalyczo | Tecnologías de la Información & Educación</title>
+  <title>Camila Mihalyczo | Tecnología, Diseño y Educación</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,7 +12,7 @@
   <style>
     :root {
       --bg: #F9F9F6;
-      --card-bg: rgba(255, 255, 255, 0.94);
+      --card-bg: rgba(255, 255, 255, 0.95);
       --text: #1E1E1E;
       --muted: #666663;
       --border: #E8E8E4;
@@ -44,7 +44,6 @@
       position: relative;
     }
 
-    /* CANVAS DE FONDO GLOBAL */
     #global-bg-canvas {
       position: fixed;
       top: 0;
@@ -130,7 +129,7 @@
 
     /* HERO */
     .hero {
-      padding: 4.5rem 0 3rem;
+      padding: 4.5rem 0 2.5rem;
     }
 
     .hero-content-grid {
@@ -195,6 +194,36 @@
       display: block;
     }
 
+    /* SELECTOR GLOBAL DE PERFILES */
+    .view-switcher-bar {
+      margin: 2rem 0 1rem;
+      background: rgba(235, 235, 230, 0.6);
+      padding: 0.4rem;
+      border-radius: 12px;
+      display: inline-flex;
+      gap: 0.35rem;
+      border: 1px solid var(--border);
+    }
+
+    .switch-btn {
+      padding: 0.6rem 1.25rem;
+      border-radius: 9px;
+      font-family: var(--font-sans);
+      font-size: 0.88rem;
+      font-weight: 700;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .switch-btn.active {
+      background: #FFFFFF;
+      color: var(--brand-blue);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
     /* MANIFIESTO */
     .manifesto-box {
       background: var(--card-bg);
@@ -203,7 +232,7 @@
       border-left: 4px solid var(--brand-blue);
       border-radius: var(--radius-md);
       padding: 1.75rem;
-      margin: 2rem 0 3.5rem;
+      margin: 1.5rem 0 3rem;
       box-shadow: 0 4px 20px -8px rgba(0, 0, 0, 0.04);
     }
 
@@ -216,7 +245,7 @@
 
     /* SECCIONES Y FORMATO VERTICAL DE TARJETAS */
     section {
-      padding: 2.5rem 0;
+      padding: 2.25rem 0;
     }
 
     .section-title {
@@ -245,17 +274,10 @@
       border-radius: var(--radius-lg);
       padding: 1.75rem;
       transition: var(--transition);
-      opacity: 0;
-      transform: translateY(20px);
       display: grid;
       grid-template-columns: 320px 1fr;
       gap: 2rem;
       align-items: center;
-    }
-
-    .card.revealed {
-      opacity: 1;
-      transform: translateY(0);
     }
 
     .card:hover {
@@ -339,7 +361,7 @@
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
       padding: 1.75rem;
-      margin: 2.5rem 0;
+      margin: 2rem 0;
     }
 
     .tl-header {
@@ -489,21 +511,21 @@
       .hero {
         padding: 3.5rem 0 2rem;
       }
-      .card {
-        padding: 1.25rem;
+      .view-switcher-bar {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
       }
-      .accordion-header {
-        padding: 1rem 1.25rem;
-      }
-      .accordion-content {
-        padding: 0 1.25rem;
+      .switch-btn {
+        width: 100%;
+        text-align: center;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- CANVAS FONDO GLOBAL INTERACTIVO -->
+  <!-- CANVAS GLOBAL DE FONDO -->
   <canvas id="global-bg-canvas"></canvas>
 
   <!-- NAVEGACIÓN -->
@@ -521,9 +543,9 @@
       <div class="hero-content-grid">
         
         <div class="hero-text">
-          <span class="tag-hero">TECNOLOGÍAS DE LA INFORMACIÓN • EDUCACIÓN</span>
-          <h1>Alfabetización digital y herramientas productivas para el aula y el ámbito laboral.</h1>
-          <p>Estudiante avanzada de Artes Multimediales (UNA)[cite: 1]. Conecto el desarrollo web, el hardware libre con Arduino[cite: 1], las herramientas colaborativas en la nube y el criterio ético en inteligencia artificial con la práctica educativa[cite: 1].</p>
+          <span class="tag-hero" id="hero-tag">TECNOLOGÍA, DISEÑO Y EDUCACIÓN</span>
+          <h1 id="hero-title">Pensamiento computacional e interfaces para el aula.</h1>
+          <p id="hero-desc">Estudiante avanzada de Artes Multimediales (UNA). Conecto el desarrollo interactivo, la robótica maker con Arduino y la ciudadanía digital con la práctica pedagógica escolar.</p>
           <div class="hero-actions">
             <a href="#proyectos" class="btn btn-primary">Ver Entornos y Casos</a>
             <a href="cv_camila_mihalyczo.pdf" download class="btn btn-outline">Descargar CV Docente (PDF)</a>
@@ -537,17 +559,25 @@
       </div>
     </section>
 
+    <!-- SELECTOR DE PERFILES -->
+    <div style="text-align: center;">
+      <div class="view-switcher-bar">
+        <button class="switch-btn active" id="btn-mode-kids" onclick="setProfileMode('kids')">🎒 Modo Primaria / Infancias (EdTech & Maker)</button>
+        <button class="switch-btn" id="btn-mode-cens" onclick="setProfileMode('cens')">🏢 Modo CENS / Adultos (Laboral & Nube)</button>
+      </div>
+    </div>
+
     <!-- MANIFIESTO PEDAGÓGICO -->
     <div class="manifesto-box">
-      <blockquote>
-        "La tecnología no es un fin en sí misma ni una teoría abstracta: es un puente directo hacia la autonomía cotidiana, la resolución práctica de problemas y la inserción sociolaboral efectiva mediante herramientas digitales reales."
+      <blockquote id="manifesto-text">
+        "La tecnología en la escuela no es un fin en sí misma ni una invitación al consumo pasivo de pantallas. Es un medio creativo de alfabetización: programar, conectar sensores y reflexionar sobre la IA es aprender a tomar decisiones informadas y dar forma a ideas reales."
       </blockquote>
     </div>
 
-    <!-- PROYECTOS / CASOS EDUCATIVOS EN FORMATO VERTICAL -->
+    <!-- PROYECTOS / CASOS EDUCATIVOS -->
     <section id="proyectos">
-      <h2 class="section-title">Entornos de Aprendizaje y Competencias Digitales</h2>
-      <p class="section-subtitle">Propuestas orientadas a la práctica real, la cultura maker y el uso crítico de la tecnología.</p>
+      <h2 class="section-title" id="projects-title">Casos y Entornos de Aprendizaje</h2>
+      <p class="section-subtitle" id="projects-subtitle">Proyectos propios diseñados desde la intersección entre código, hardware y didáctica.</p>
 
       <div class="projects-stack">
         
@@ -558,36 +588,36 @@
           </div>
           <div class="card-content">
             <div class="card-header">
-              <h3 class="card-title">Activity Blog — Campus & Autonomía</h3>
-              <span class="tech-pill">Next.js / Nube / Gestión</span>
+              <h3 class="card-title" id="card1-title">Activity Blog — Campus Web & Lab</h3>
+              <span class="tech-pill">Next.js / Speech API / CMS</span>
             </div>
-            <span class="pedagogic-badge">Plataforma EdTech Propia</span>
-            <p>Entorno virtual con panel de gestión docente y módulos de práctica autónoma[cite: 1]. Pensado para que los estudiantes adquieran destreza en entornos de trabajo online y organicen sus trayectorias de aprendizaje[cite: 1].</p>
+            <span class="pedagogic-badge" id="card1-badge">Plataforma EdTech Propia</span>
+            <p id="card1-desc">Entorno virtual con panel de gestión docente, tracks por edades y laboratorio de reconocimiento de voz. Fomenta la autonomía del estudiante y el registro docente continuo.</p>
             <div>
               <a href="https://activityblog.vercel.app/" target="_blank" class="btn btn-outline" style="font-size: 0.8rem;">Explorar Campus ↗</a>
             </div>
           </div>
         </article>
 
-        <!-- Bloque 2: Automatización & Lógica -->
+        <!-- Bloque 2: Hardware / Lógica -->
         <article class="card">
           <div class="card-preview-media">
-            <img src="arduino.png" alt="Sistemas lógicos y circuitos interactivos" />
+            <img src="arduino.png" alt="Instalación con Arduino y sensores" />
           </div>
           <div class="card-content">
             <div class="card-header">
-              <h3 class="card-title">Lógica Aplicada & Automatización</h3>
-              <span class="tech-pill">Hardware Libre / Sensores / Lógica</span>
+              <h3 class="card-title" id="card2-title">Cultura Maker: Sensores e Instalaciones</h3>
+              <span class="tech-pill" id="card2-pill">Arduino Uno / LDR / p5.js</span>
             </div>
-            <span class="pedagogic-badge">Pensamiento Algorítmico</span>
-            <p>Comprensión del funcionamiento técnico detrás de los automatismos cotidianos: lectura de variables, toma de decisiones lógica (condicionales) y control de dispositivos en entornos técnicos mediante microcontroladores[cite: 1].</p>
+            <span class="pedagogic-badge" id="card2-badge">Computación Física Escolar</span>
+            <p id="card2-desc">Dispositivos interactivos tangibles. Los chicos programan circuitos con sensores lumínicos y actuadores para entender salidas digitales y reacciones del mundo físico.</p>
             <div>
               <a href="#planificacion" class="btn btn-outline" style="font-size: 0.8rem;">Ver Módulos Curriculares ↓</a>
             </div>
           </div>
         </article>
 
-        <!-- Bloque 3: Alfabetización Digital & UX (SVG en línea) -->
+        <!-- Bloque 3: Alfabetización Digital & UX (SVG) -->
         <article class="card">
           <div class="card-preview-media">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
@@ -634,18 +664,18 @@
           </div>
           <div class="card-content">
             <div class="card-header">
-              <h3 class="card-title">Productividad en la Nube & UX</h3>
-              <span class="tech-pill">Google Docs / Sheets / Forms</span>
+              <h3 class="card-title" id="card3-title">Alfabetización Digital & UX Inclusivo</h3>
+              <span class="tech-pill" id="card3-pill">HTML5 / Figma / WCAG</span>
             </div>
-            <span class="pedagogic-badge">Herramientas Colaborativas</span>
-            <p>Uso eficiente de hojas de cálculo, procesadores de texto y formularios para entornos administrativos y de comercio[cite: 1]. Enfoque en organización clara de la información, accesibilidad y diseño centrado en el usuario[cite: 1].</p>
+            <span class="pedagogic-badge" id="card3-badge">Diseño Centrado en las Personas</span>
+            <p id="card3-desc">Programación de interfaces con perspectiva accesible. Los alumnos crean prototipos y aprenden contrastes, jerarquías visuales y empatía hacia diversas formas de aprender.</p>
             <div>
-              <a href="#semaforo" class="btn btn-outline" style="font-size: 0.8rem;">Ver Criterio de Trabajo ↓</a>
+              <a href="#semaforo" class="btn btn-outline" style="font-size: 0.8rem;">Ver Enfoque Didáctico ↓</a>
             </div>
           </div>
         </article>
 
-        <!-- Bloque 4: IA Segura & Productividad (SVG en línea) -->
+        <!-- Bloque 4: IA & Ciudadanía (SVG) -->
         <article class="card">
           <div class="card-preview-media">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
@@ -653,21 +683,21 @@
               <g transform="translate(60, 60)">
                 <rect width="450" height="270" rx="16" fill="#FFFFFF" stroke="#E2E2DC" stroke-width="2"/>
                 <path d="M 0 16 Q 0 0 16 0 L 434 0 Q 450 0 450 16 L 450 56 L 0 56 Z" fill="#2563EB"/>
-                <text x="24" y="34" font-family="system-ui, sans-serif" font-size="13" font-weight="800" fill="#FFFFFF" letter-spacing="1">USO ÉTICO Y PRODUCTIVO DE IA</text>
-                <text x="24" y="47" font-family="monospace" font-size="9" fill="#BFDBFE">HABILITACIÓN AÚLICA • PRODUCTIVIDAD LABORAL</text>
+                <text x="24" y="34" font-family="system-ui, sans-serif" font-size="13" font-weight="800" fill="#FFFFFF" letter-spacing="1">LICENCIA DE CONDUCCIÓN DIGITAL</text>
+                <text x="24" y="47" font-family="monospace" font-size="9" fill="#BFDBFE">HABILITACIÓN AÚLICA • USO ÉTICO DE IA</text>
                 <rect x="24" y="78" width="90" height="110" rx="8" fill="#F1F5F9" stroke="#CBD5E1" stroke-width="1.5"/>
                 <circle cx="69" cy="116" r="20" fill="#94A3B8"/>
                 <path d="M 42 172 C 42 148, 96 148, 96 172 Z" fill="#94A3B8"/>
                 <text x="135" y="96" font-family="monospace" font-size="9" fill="#64748B">ESTADO:</text>
-                <text x="135" y="112" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#15803D">CRITERIO CRÍTICO ACTIVO</text>
+                <text x="135" y="112" font-family="system-ui, sans-serif" font-size="13" font-weight="700" fill="#15803D">HABILITADO / PILOTO REFLEXIVO</text>
                 <text x="135" y="136" font-family="monospace" font-size="9" fill="#64748B">ROL DEL SISTEMA:</text>
-                <text x="135" y="152" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#1E293B">Asistente de Productividad y Redacción</text>
-                <text x="135" y="176" font-family="monospace" font-size="9" fill="#64748B">SEGURIDAD:</text>
-                <text x="135" y="192" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#1E293B">Protección de Datos y Verificación de Fuentes</text>
+                <text x="135" y="152" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#1E293B">Copiloto de Aprendizaje y Redacción</text>
+                <text x="135" y="176" font-family="monospace" font-size="9" fill="#64748B">VERIFICACIÓN:</text>
+                <text x="135" y="192" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#1E293B">Detección de alucinaciones y fuentes</text>
                 <rect x="24" y="206" width="402" height="42" rx="8" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1"/>
                 <circle cx="46" cy="227" r="10" fill="#22C55E"/>
                 <path d="M 42 227 L 45 230 L 51 223" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
-                <text x="66" y="231" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#334155">Ciberseguridad y Privacidad Ciudadana Garantizada</text>
+                <text x="66" y="231" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#334155">Protocolo de Privacidad y Cero Datos Personales Cumplido</text>
               </g>
               <g transform="translate(565, 55)">
                 <rect width="160" height="280" rx="30" fill="#1E293B" stroke="#0F172A" stroke-width="3"/>
@@ -683,13 +713,13 @@
           </div>
           <div class="card-content">
             <div class="card-header">
-              <h3 class="card-title">IA en el Trabajo & Ciberseguridad</h3>
-              <span class="tech-pill">Asistentes / Prompts / Seguridad</span>
+              <h3 class="card-title" id="card4-title">Licencia de IA & Ciudadanía Digital</h3>
+              <span class="tech-pill" id="card4-pill">Privacidad / Ética / Prompts</span>
             </div>
-            <span class="pedagogic-badge">Criterio Ético y Productivo</span>
-            <p>Uso de herramientas de IA generativa para redacción, estructuración de ideas y optimización de tareas diarias[cite: 1], acompañado de pautas estrictas sobre protección de datos personales y detección de alucinaciones.</p>
+            <span class="pedagogic-badge" id="card4-badge">IA como Copiloto Seguro</span>
+            <p id="card4-desc">Dinámica aúlica basada en "sacar la licencia de conducir" antes de usar herramientas de IA. Enseña a detectar alucinaciones, proteger datos personales y usar la IA para disparar ideas, no para reemplazar el pensamiento.</p>
             <div>
-              <a href="#semaforo" class="btn btn-outline" style="font-size: 0.8rem;">Ver Pautas de Uso ↓</a>
+              <a href="#semaforo" class="btn btn-outline" style="font-size: 0.8rem;">Probar Semáforo ↓</a>
             </div>
           </div>
         </article>
@@ -697,82 +727,82 @@
       </div>
     </section>
 
-    <!-- MINI COMPONENTE DIDÁCTICO: EL SEMÁFORO DE LA IA -->
+    <!-- SEMÁFORO INTERACTIVO -->
     <section id="semaforo">
       <div class="traffic-light-interactive">
         <div class="tl-header">
-          <h3 style="font-size: 1.25rem; font-weight: 700;">🚦 Criterio Tecnológico: Semáforo de Ciberseguridad e IA</h3>
+          <h3 id="semaforo-title" style="font-size: 1.25rem; font-weight: 700;">🚦 Dinámica Aúlica: El Semáforo de la IA para Infancias</h3>
         </div>
-        <p style="font-size: 0.95rem; color: var(--muted); margin-bottom: 1.25rem;">
-          Guía metodológica para la toma de decisiones informada en el ámbito educativo y laboral. Hacé clic en cada nivel:
+        <p id="semaforo-desc" style="font-size: 0.95rem; color: var(--muted); margin-bottom: 1.25rem;">
+          Técnica visual utilizada en el aula para que los alumnos comprendan límites éticos, privacidad y pensamiento crítico. Tocá cada luz para ver la consigna:
         </p>
         
         <div class="tl-pills">
-          <button class="tl-btn active" data-state="green">🟢 Luz Verde (Productividad y Borradores)</button>
-          <button class="tl-btn" data-state="yellow">🟡 Luz Amarilla (Chequeo y Veracidad)</button>
-          <button class="tl-btn" data-state="red">🔴 Luz Roja (Ciberseguridad y Fraudes)</button>
+          <button class="tl-btn active" data-state="green" id="btn-light-green">🟢 Luz Verde (Creatividad y Juego)</button>
+          <button class="tl-btn" data-state="yellow" id="btn-light-yellow">🟡 Luz Amarilla (Chequeo de Alucinaciones)</button>
+          <button class="tl-btn" data-state="red" id="btn-light-red">🔴 Luz Roja (Privacidad y Peligro)</button>
         </div>
 
         <div class="tl-card-display" id="tl-feedback">
-          <strong>Uso Productivo:</strong> Asistencia en redacción de correos formales, mejora de síntesis para CVs, generación de ideas para proyectos comerciales o corrección de textos. La IA actúa como soporte de inicio.
+          <strong>Uso Habilitado:</strong> "Ayudame a inventar nombres para los personajes de mi juego en p5.js", o pedir explicaciones con analogías simples. La IA funciona como copiloto y disparador imaginativo.
         </div>
       </div>
     </section>
 
     <!-- SECUENCIA DIDÁCTICA / MÓDULOS -->
     <section id="planificacion">
-      <h2 class="section-title">Propuesta de Secuencia Curricular</h2>
-      <p class="section-subtitle">Plan modular adaptable tanto a Primaria/Secundaria como a CENS (Secundaria de Adultos)[cite: 1].</p>
+      <h2 class="section-title" id="curriculum-title">Propuesta de Secuencia Curricular</h2>
+      <p class="section-subtitle" id="curriculum-subtitle">Programa estructurado en 5 módulos: "Del Pixel al Sensor y la Ciudadanía Digital" (adaptable a Primaria o Secundaria Básica).</p>
 
       <div class="curriculum-module">
         
         <div class="accordion-item">
           <button class="accordion-header">
-            <span><strong>Módulo 1:</strong> Gestión en la nube y herramientas colaborativas</span>
+            <span id="mod1-title"><strong>Módulo 1:</strong> ¿Cómo piensa una máquina? Algoritmos y lógica visual</span>
             <span class="accordion-icon">+</span>
           </button>
           <div class="accordion-content">
-            <p>Organización de archivos en Google Drive, redacción de documentos formales colaborativos y elaboración de planillas de cálculo (fórmulas básicas, filtros y presupuestos) para el ámbito laboral y educativo[cite: 1].</p>
+            <p id="mod1-desc">Introducción al pensamiento secuencial y bucles mediante programación visual (p5.js o Scratch). Los alumnos crean su primer personaje interactivo que responde al teclado.</p>
           </div>
         </div>
 
         <div class="accordion-item">
           <button class="accordion-header">
-            <span><strong>Módulo 2:</strong> Ciudadanía digital, trámites y ciberseguridad</span>
+            <span id="mod2-title"><strong>Módulo 2:</strong> Electrónica tangible: Conociendo Arduino y la protoboard</span>
             <span class="accordion-icon">+</span>
           </button>
           <div class="accordion-content">
-            <p>Gestión segura de plataformas de servicios y trámites (MiBA, AFIP, ANSES), autenticación en dos pasos, creación de contraseñas robustas y prevención de engaños digitales (phishing)[cite: 1].</p>
+            <p id="mod2-desc">Descubrimiento del hardware libre. Montaje de circuitos con LEDs y resistencias. Programación de secuencias de luz temporizadas para entender salidas digitales y masa (GND).</p>
           </div>
         </div>
 
         <div class="accordion-item">
           <button class="accordion-header">
-            <span><strong>Módulo 3:</strong> Lógica computacional y automatización de procesos</span>
+            <span id="mod3-title"><strong>Módulo 3:</strong> El entorno reacciona: Lectura de sensores de luz (LDR)</span>
             <span class="accordion-icon">+</span>
           </button>
           <div class="accordion-content">
-            <p>Comprensión de secuencias lógicas y condicionales[cite: 1]. Aplicación en automatizaciones sencillas de tareas repetitivas y análisis de cómo los sistemas informáticos procesan la información[cite: 1].</p>
+            <p id="mod3-desc">Uso de entradas analógicas. Programación de condicionales (if/else) para crear un prototipo de iluminación automática escolar sensible a la luz ambiental.</p>
           </div>
         </div>
 
         <div class="accordion-item">
           <button class="accordion-header">
-            <span><strong>Módulo 4:</strong> Inteligencia artificial aplicada al ámbito laboral y educativo</span>
+            <span id="mod4-title"><strong>Módulo 4:</strong> Proyecto integrador maker y muestra colaborativa</span>
             <span class="accordion-icon">+</span>
           </button>
           <div class="accordion-content">
-            <p>Estructuración de instrucciones claras (prompts) para redacción institucional, resolución de consultas complejas, detección de respuestas erróneas y límites éticos de las herramientas generativas[cite: 1].</p>
+            <p id="mod4-desc">Desarrollo en equipo de una mini-instalación interactiva. Cierre reflexivo donde cada grupo expone el funcionamiento y la solución alcanzada ante sus pares.</p>
           </div>
         </div>
 
         <div class="accordion-item">
           <button class="accordion-header">
-            <span><strong>Módulo 5:</strong> Proyecto integrador sociolaboral y maker</span>
+            <span id="mod5-title"><strong>Módulo 5:</strong> Licencia de Conducción Digital & Semáforo de la IA</span>
             <span class="accordion-icon">+</span>
           </button>
           <div class="accordion-content">
-            <p>Diseño y presentación de una solución tecnológica concreta vinculada a los intereses productivos de los estudiantes (microemprendimiento, gestión comunitaria o portfolio personal)[cite: 1].</p>
+            <p id="mod5-desc">Juego del "Detective de Alucinaciones": cazar los errores inventados por la IA. Protocolo de cero datos personales en la red y entrega de la credencial física de explorador tecnológico habilitado.</p>
           </div>
         </div>
 
@@ -783,13 +813,217 @@
 
   <!-- FOOTER -->
   <footer class="container">
-    <div>Camila Mihalyczo • CABA, Argentina[cite: 1]</div>
-    <div>camila.mihalyczo@bue.edu.ar[cite: 1]</div>
+    <div>Camila Mihalyczo • CABA, Argentina</div>
+    <div>camila.mihalyczo@bue.edu.ar</div>
   </footer>
 
   <!-- SCRIPTS -->
   <script>
-    // 1. Canvas Global de Nodos en Background
+    // 1. Datos para los perfiles interactivos
+    const profileData = {
+      kids: {
+        tag: "TECNOLOGÍA, DISEÑO Y EDUCACIÓN",
+        heroTitle: "Pensamiento computacional e interfaces para el aula.",
+        heroDesc: "Estudiante avanzada de Artes Multimediales (UNA). Conecto el desarrollo interactivo, la robótica maker con Arduino y la ciudadanía digital con la práctica pedagógica escolar.",
+        manifesto: "La tecnología en la escuela no es un fin en sí misma ni una invitación al consumo pasivo de pantallas. Es un medio creativo de alfabetización: programar, conectar sensores y reflexionar sobre la IA es aprender a tomar decisiones informadas y dar forma a ideas reales.",
+        projTitle: "Casos y Entornos de Aprendizaje",
+        projSubtitle: "Proyectos propios diseñados desde la intersección entre código, hardware y didáctica.",
+        card1: {
+          title: "Activity Blog — Campus Web & Lab",
+          badge: "Plataforma EdTech Propia",
+          desc: "Entorno virtual con panel de gestión docente, tracks por edades y laboratorio de reconocimiento de voz. Fomenta la autonomía del estudiante y el registro docente continuo."
+        },
+        card2: {
+          title: "Cultura Maker: Sensores e Instalaciones",
+          pill: "Arduino Uno / LDR / p5.js",
+          badge: "Computación Física Escolar",
+          desc: "Dispositivos interactivos tangibles. Los chicos programan circuitos con sensores lumínicos y actuadores para entender salidas digitales y reacciones del mundo físico."
+        },
+        card3: {
+          title: "Alfabetización Digital & UX Inclusivo",
+          pill: "HTML5 / Figma / WCAG",
+          badge: "Diseño Centrado en las Personas",
+          desc: "Programación de interfaces con perspectiva accesible. Los alumnos crean prototipos y aprenden contrastes, jerarquías visuales y empatía hacia diversas formas de aprender."
+        },
+        card4: {
+          title: "Licencia de IA & Ciudadanía Digital",
+          pill: "Privacidad / Ética / Prompts",
+          badge: "IA como Copiloto Seguro",
+          desc: "Dinámica aúlica basada en 'sacar la licencia de conducir' antes de usar herramientas de IA. Enseña a detectar alucinaciones, proteger datos personales y usar la IA para disparar ideas, no para reemplazar el pensamiento."
+        },
+        semaforo: {
+          title: "🚦 Dinámica Aúlica: El Semáforo de la IA para Infancias",
+          desc: "Técnica visual utilizada en el aula para que los alumnos comprendan límites éticos, privacidad y pensamiento crítico. Tocá cada luz para ver la consigna:",
+          greenBtn: "🟢 Luz Verde (Creatividad y Juego)",
+          yellowBtn: "🟡 Luz Amarilla (Chequeo de Alucinaciones)",
+          redBtn: "🔴 Luz Roja (Privacidad y Peligro)",
+          greenText: "<strong>🟢 Uso Habilitado:</strong> 'Ayudame a inventar nombres para los personajes de mi juego en p5.js', o pedir explicaciones con analogías simples. La IA funciona como copiloto y disparador imaginativo.",
+          yellowText: "<strong>🟡 Zona de Chequeo (Alucinaciones):</strong> Si la IA da fechas, datos históricos o científicos, los chicos deben revisarlo con libros o enciclopedias. Se les enseña que la máquina une palabras por probabilidad, no razona la verdad.",
+          redText: "<strong>🔴 Límite Estricto (Peligro):</strong> Prohibido ingresar nombres de alumnos, fotos, colegios o contraseñas. Tampoco se permite pedirle que haga el código completo sin comprender su funcionamiento."
+        },
+        curriculum: {
+          title: "Propuesta de Secuencia Curricular",
+          subtitle: "Programa estructurado en 5 módulos: 'Del Pixel al Sensor y la Ciudadanía Digital' (adaptable a Primaria o Secundaria Básica).",
+          m1T: "<strong>Módulo 1:</strong> ¿Cómo piensa una máquina? Algoritmos y lógica visual",
+          m1D: "Introducción al pensamiento secuencial y bucles mediante programación visual (p5.js o Scratch). Los alumnos crean su primer personaje interactivo que responde al teclado.",
+          m2T: "<strong>Módulo 2:</strong> Electrónica tangible: Conociendo Arduino y la protoboard",
+          m2D: "Descubrimiento del hardware libre. Montaje de circuitos con LEDs y resistencias. Programación de secuencias de luz temporizadas para entender salidas digitales y masa (GND).",
+          m3T: "<strong>Módulo 3:</strong> El entorno reacciona: Lectura de sensores de luz (LDR)",
+          m3D: "Uso de entradas analógicas. Programación de condicionales (if/else) para crear un prototipo de iluminación automática escolar sensible a la luz ambiental.",
+          m4T: "<strong>Módulo 4:</strong> Proyecto integrador maker y muestra colaborativa",
+          m4D: "Desarrollo en equipo de una mini-instalación interactiva. Cierre reflexivo donde cada grupo expone el funcionamiento y la solución alcanzada ante sus pares.",
+          m5T: "<strong>Módulo 5:</strong> Licencia de Conducción Digital & Semáforo de la IA",
+          m5D: "Juego del 'Detective de Alucinaciones': cazar los errores inventados por la IA. Protocolo de cero datos personales en la red y entrega de la credencial física de explorador tecnológico habilitado."
+        }
+      },
+      cens: {
+        tag: "TECNOLOGÍAS DE LA INFORMACIÓN • CENS",
+        heroTitle: "Alfabetización digital y herramientas productivas para el mundo laboral.",
+        heroDesc: "Estudiante avanzada de Artes Multimediales (UNA). Conecto el desarrollo web, las herramientas colaborativas en la nube y el criterio ético en inteligencia artificial con la educación de jóvenes y adultos.",
+        manifesto: "En la educación de jóvenes y adultos, la tecnología no es una teoría abstracta: es un puente directo hacia la autonomía cotidiana, la resolución de trámites ciudadanos y la inserción sociolaboral efectiva mediante herramientas digitales reales.",
+        projTitle: "Entornos de Aprendizaje y Competencias Laborales",
+        projSubtitle: "Propuestas orientadas a la práctica real, la resolución de problemas y el mundo del trabajo.",
+        card1: {
+          title: "Activity Blog — Campus & Autonomía",
+          badge: "Plataforma EdTech Propia",
+          desc: "Entorno virtual con panel de gestión docente y módulos de práctica autónoma. Pensado para que los estudiantes adquieran destreza en entornos de trabajo online y organicen sus trayectorias de aprendizaje."
+        },
+        card2: {
+          title: "Lógica Aplicada & Automatización",
+          pill: "Hardware Libre / Sensores / Lógica",
+          badge: "Pensamiento Algorítmico",
+          desc: "Comprensión del funcionamiento técnico detrás de los automatismos cotidianos: lectura de variables, toma de decisiones lógica (condicionales) y control de dispositivos en entornos técnicos."
+        },
+        card3: {
+          title: "Productividad en la Nube & UX",
+          pill: "Google Docs / Sheets / Forms",
+          badge: "Herramientas Colaborativas",
+          desc: "Uso eficiente de hojas de cálculo, procesadores de texto y formularios para entornos administrativos y de comercio. Enfoque en organización de la información y claridad visual."
+        },
+        card4: {
+          title: "IA en el Trabajo & Ciberseguridad",
+          pill: "Asistentes / Prompts / Seguridad",
+          badge: "Criterio Ético y Productivo",
+          desc: "Uso de herramientas de IA generativa para redacción profesional, estructuración de ideas y optimización de tareas diarias, acompañado de pautas estrictas sobre protección de datos personales."
+        },
+        semaforo: {
+          title: "🚦 Criterio Tecnológico: Semáforo de Ciberseguridad e IA para Adultos",
+          desc: "Guía metodológica para la toma de decisiones informada en el ámbito laboral y personal. Hacé clic en cada nivel:",
+          greenBtn: "🟢 Luz Verde (Productividad y Borradores)",
+          yellowBtn: "🟡 Luz Amarilla (Chequeo y Veracidad)",
+          redBtn: "🔴 Luz Roja (Ciberseguridad y Fraudes)",
+          greenText: "<strong>🟢 Uso Productivo:</strong> Asistencia en redacción de correos formales, mejora de síntesis para CVs, generación de ideas para proyectos comerciales o corrección de textos. La IA actúa como soporte de inicio.",
+          yellowText: "<strong>🟡 Zona de Verificación:</strong> Contrastar normativas, cálculos fiscales o citas con fuentes oficiales. Reconocer que los modelos probabilísticos pueden generar respuestas inexactas con tono convincente.",
+          redText: "<strong>🔴 Límite de Seguridad:</strong> Jamás subir datos confidenciales, números de tarjetas, claves bancarias o información privada de terceros a plataformas públicas. Criterio de prevención ante posibles estafas."
+        },
+        curriculum: {
+          title: "Propuesta de Secuencia Curricular (CENS)",
+          subtitle: "Plan modular para Tecnología de la Información en Secundaria de Adultos, con foco en competencias sociolaborales.",
+          m1T: "<strong>Módulo 1:</strong> Gestión en la nube y herramientas colaborativas",
+          m1D: "Organización de archivos en Google Drive, redacción de documentos formales colaborativos y elaboración de planillas de cálculo (fórmulas básicas, filtros y presupuestos) para el ámbito laboral.",
+          m2T: "<strong>Módulo 2:</strong> Ciudadanía digital, trámites y ciberseguridad",
+          m2D: "Gestión segura de plataformas de servicios y trámites (MiBA, AFIP, ANSES), autenticación en dos pasos, creación de contraseñas robustas y prevención de engaños digitales (phishing).",
+          m3T: "<strong>Módulo 3:</strong> Lógica computacional y automatización de procesos",
+          m3D: "Comprensión de secuencias lógicas y condicionales. Aplicación en automatizaciones sencillas de tareas repetitivas y análisis de cómo los sistemas informáticos procesan la información.",
+          m4T: "<strong>Módulo 4:</strong> Inteligencia artificial aplicada al ámbito laboral",
+          m4D: "Estructuración de instrucciones claras (prompts) para redacción institucional, resolución de consultas complejas, detección de respuestas erróneas y límites éticos de las herramientas generativas.",
+          m5T: "<strong>Módulo 5:</strong> Proyecto integrador sociolaboral",
+          m5D: "Diseño y presentación de una solución tecnológica concreta vinculada a los intereses productivos de los estudiantes (microemprendimiento, gestión barrial o portfolio personal)."
+        }
+      }
+    };
+
+    let currentMode = 'kids';
+
+    function setProfileMode(mode) {
+      currentMode = mode;
+      const d = profileData[mode];
+
+      document.getElementById('btn-mode-kids').classList.toggle('active', mode === 'kids');
+      document.getElementById('btn-mode-cens').classList.toggle('active', mode === 'cens');
+
+      document.getElementById('hero-tag').textContent = d.tag;
+      document.getElementById('hero-title').textContent = d.heroTitle;
+      document.getElementById('hero-desc').textContent = d.heroDesc;
+      document.getElementById('manifesto-text').textContent = d.manifesto;
+
+      document.getElementById('projects-title').textContent = d.projTitle;
+      document.getElementById('projects-subtitle').textContent = d.projSubtitle;
+
+      document.getElementById('card1-title').textContent = d.card1.title;
+      document.getElementById('card1-badge').textContent = d.card1.badge;
+      document.getElementById('card1-desc').textContent = d.card1.desc;
+
+      document.getElementById('card2-title').textContent = d.card2.title;
+      document.getElementById('card2-pill').textContent = d.card2.pill;
+      document.getElementById('card2-badge').textContent = d.card2.badge;
+      document.getElementById('card2-desc').textContent = d.card2.desc;
+
+      document.getElementById('card3-title').textContent = d.card3.title;
+      document.getElementById('card3-pill').textContent = d.card3.pill;
+      document.getElementById('card3-badge').textContent = d.card3.badge;
+      document.getElementById('card3-desc').textContent = d.card3.desc;
+
+      document.getElementById('card4-title').textContent = d.card4.title;
+      document.getElementById('card4-pill').textContent = d.card4.pill;
+      document.getElementById('card4-badge').textContent = d.card4.badge;
+      document.getElementById('card4-desc').textContent = d.card4.desc;
+
+      document.getElementById('semaforo-title').textContent = d.semaforo.title;
+      document.getElementById('semaforo-desc').textContent = d.semaforo.desc;
+      document.getElementById('btn-light-green').textContent = d.semaforo.greenBtn;
+      document.getElementById('btn-light-yellow').textContent = d.semaforo.yellowBtn;
+      document.getElementById('btn-light-red').textContent = d.semaforo.redBtn;
+
+      // Reseteo de semáforo a luz verde
+      document.querySelectorAll('.tl-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('btn-light-green').classList.add('active');
+      document.getElementById('tl-feedback').innerHTML = d.semaforo.greenText;
+
+      document.getElementById('curriculum-title').textContent = d.curriculum.title;
+      document.getElementById('curriculum-subtitle').textContent = d.curriculum.subtitle;
+      document.getElementById('mod1-title').innerHTML = d.curriculum.m1T;
+      document.getElementById('mod1-desc').textContent = d.curriculum.m1D;
+      document.getElementById('mod2-title').innerHTML = d.curriculum.m2T;
+      document.getElementById('mod2-desc').textContent = d.curriculum.m2D;
+      document.getElementById('mod3-title').innerHTML = d.curriculum.m3T;
+      document.getElementById('mod3-desc').textContent = d.curriculum.m3D;
+      document.getElementById('mod4-title').innerHTML = d.curriculum.m4T;
+      document.getElementById('mod4-desc').textContent = d.curriculum.m4D;
+      document.getElementById('mod5-title').innerHTML = d.curriculum.m5T;
+      document.getElementById('mod5-desc').textContent = d.curriculum.m5D;
+    }
+
+    // 2. Semáforo Dinámico
+    document.querySelectorAll('.tl-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tl-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const state = btn.getAttribute('data-state');
+        const sem = profileData[currentMode].semaforo;
+        if (state === 'green') document.getElementById('tl-feedback').innerHTML = sem.greenText;
+        if (state === 'yellow') document.getElementById('tl-feedback').innerHTML = sem.yellowText;
+        if (state === 'red') document.getElementById('tl-feedback').innerHTML = sem.redText;
+      });
+    });
+
+    // 3. Acordeón
+    document.querySelectorAll('.accordion-header').forEach(header => {
+      header.addEventListener('click', () => {
+        const item = header.parentElement;
+        const isActive = item.classList.contains('active');
+        
+        document.querySelectorAll('.accordion-item').forEach(other => {
+          other.classList.remove('active');
+        });
+
+        if (!isActive) {
+          item.classList.add('active');
+        }
+      });
+    });
+
+    // 4. Canvas Global de Nodos en Background
     const canvas = document.getElementById('global-bg-canvas');
     const ctx = canvas.getContext('2d');
     let width, height, points = [];
@@ -848,55 +1082,6 @@
     window.addEventListener('resize', resize);
     resize();
     animate();
-
-    // 2. Scroll Reveal
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, idx) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => {
-            entry.target.classList.add('revealed');
-          }, idx * 100);
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.card').forEach(el => observer.observe(el));
-
-    // 3. Acordeón
-    document.querySelectorAll('.accordion-header').forEach(header => {
-      header.addEventListener('click', () => {
-        const item = header.parentElement;
-        const isActive = item.classList.contains('active');
-        
-        document.querySelectorAll('.accordion-item').forEach(other => {
-          other.classList.remove('active');
-        });
-
-        if (!isActive) {
-          item.classList.add('active');
-        }
-      });
-    });
-
-    // 4. Semáforo Interactivo de IA / Ciberseguridad
-    const tlBtns = document.querySelectorAll('.tl-btn');
-    const feedbackBox = document.getElementById('tl-feedback');
-
-    const statesText = {
-      green: '<strong>🟢 Uso Productivo:</strong> Asistencia en redacción de correos formales, mejora de síntesis para CVs, generación de ideas para proyectos comerciales o corrección de textos. La IA actúa como soporte de inicio.',
-      yellow: '<strong>🟡 Zona de Verificación:</strong> Contrastar normativas, cálculos fiscales o citas con fuentes oficiales. Reconocer que los modelos probabilísticos pueden generar respuestas inexactas con tono convincente.',
-      red: '<strong>🔴 Límite de Seguridad:</strong> Jamás subir datos confidenciales, números de tarjetas, claves bancarias o información privada de terceros a plataformas públicas. Criterio de prevención ante posibles estafas.'
-    };
-
-    tlBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        tlBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const state = btn.getAttribute('data-state');
-        feedbackBox.innerHTML = statesText[state];
-      });
-    });
   </script>
 </body>
 </html>
